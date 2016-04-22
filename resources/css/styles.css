@@ -64,6 +64,10 @@ body{
     height: 13px;
 }
 
+.table-boleto .conteudo.auto{
+    height: auto;
+}
+
 .table-boleto .sacador {
     display: inline;
     margin-left: 5px;
@@ -105,10 +109,6 @@ body{
 .table-boleto .logocontainer {
     width: 257px;
     display: inline-block;
-}
-
-.table-boleto .logobanco img {
-    margin-bottom: -5px;
 }
 
 .table-boleto .codbanco {
