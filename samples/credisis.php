@@ -21,6 +21,8 @@ $boleto = new Credisis([
 	'contaDv'                => 7,
 	'convenio'               => '1000000', // 4, 6 ou 7 dígitos
 	'codigoCooperado'        => '0027',
+	'especieDoc'             => 'DSI',
+	'numeroDocumento'        => '00025',
 	'descricaoDemonstrativo' => [
 		'Compra de materiais cosméticos',
 		'Compra de alicate',
