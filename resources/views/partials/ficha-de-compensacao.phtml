@@ -86,8 +86,8 @@
 		</td>
 	</tr>
 	<tr>
-		<?php if ( ! $esconde_uso_banco ) : ?>
-			<td<?php if ( ! $mostra_cip ) : ?> colspan="2"<?php endif ?>>
+		<?php if ( !$esconde_uso_banco ) : ?>
+			<td<?php if ( !$mostra_cip ) : ?> colspan="2"<?php endif ?>>
 				<div class="titulo">Uso do banco</div>
 				<div class="conteudo"><?php echo $uso_banco ?></div>
 			</td>
@@ -124,7 +124,7 @@
 	</tr>
 	<tr>
 		<td colspan="7">
-			<div class="titulo">Instruções (Texto de responsabilidade do cedente)</div>
+			<div class="titulo">Instruções (Texto de responsabilidade do beneficiário)</div>
 		</td>
 		<td>
 			<div class="titulo">(-) Descontos / Abatimentos</div>
@@ -132,20 +132,17 @@
 		</td>
 	</tr>
 	<tr>
-		<td colspan="7" class="notopborder">
-			<div class="conteudo"><?php echo $instrucoes[ 1 ]; ?></div>
-			<div class="conteudo"><?php echo $instrucoes[ 2 ]; ?></div>
+		<td colspan="7" rowspan="2" class="notopborder">
+			<div class="conteudo auto">
+				<?php echo implode('<br>', $instrucoes); ?>
+			</div>
 		</td>
 		<td>
-			<div class="titulo">(+) Mora / Multa</div>
+			<div class="titulo"> ( +) Mora / Multa</div>
 			<div class="conteudo rtl"><?php echo $mora_multa ?></div>
 		</td>
 	</tr>
 	<tr>
-		<td colspan="7" class="notopborder">
-			<div class="conteudo"><?php echo $instrucoes[ 3 ]; ?></div>
-			<div class="conteudo"><?php echo $instrucoes[ 4 ]; ?></div>
-		</td>
 		<td>
 			<div class="titulo">(=) Valor Pago</div>
 			<div class="conteudo rtl"><?php echo $valor_cobrado ?></div>
