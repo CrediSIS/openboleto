@@ -23,7 +23,8 @@ $boleto = new Credisis([
 	'codigoCooperado'        => '0027',
 	'especieDoc'             => 'DSI',
 	'numeroDocumento'        => '00025',
-	'layout'                 => 'default-carne.phtml',
+	'layout'                 => 'default-3vias.phtml',
+//	'layout'                 => 'default-carne.phtml',
 	'instrucoesImpressao'    => false,
 	'descricaoDemonstrativo' => [
 		'Compra de materiais cosméticos',

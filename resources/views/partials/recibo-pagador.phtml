@@ -1,0 +1,77 @@
+<table class="table-boleto" cellpadding="0" cellspacing="0" border="0">
+	<tbody>
+	<tr>
+		<td valign="bottom" colspan="8" class="noborder nopadding">
+			<div class="logocontainer">
+				<div class="logobanco">
+					<img src="<?php echo $logo_banco; ?>" alt="logotipo do banco">
+				</div>
+				<div class="codbanco"><?php echo $codigo_banco_com_dv ?></div>
+			</div>
+			<div class="linha-digitavel"><?php echo $linha_digitavel ?></div>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="5">
+			<div class="titulo">Nome do Pagador/CPF/CNPJ/Endereço/Cidade/UF/CEP</div>
+			<div class="conteudo">
+				<?php echo $sacado ?>
+				&nbsp;/&nbsp;
+				<?php echo $sacado_documento; ?>&nbsp;/&nbsp;
+				<?php echo $sacado_endereco1; ?>&nbsp;/&nbsp;
+				<?php echo $sacado_endereco2; ?>
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<div class="titulo">Nosso número</div>
+			<div class="conteudo"><?php echo $nosso_numero ?></div>
+		</td>
+		<td>
+			<div class="titulo">Nº documento</div>
+			<div class="conteudo"><?php echo $numero_documento ?></div>
+		</td>
+		<td>
+			<div class="titulo">Data de Vencimento</div>
+			<div class="conteudo rtl"><?php echo $data_vencimento ?></div>
+		</td>
+		<td>
+			<div class="titulo">(=) Valor Documento</div>
+			<div class="conteudo rtl"><?php echo $valor_documento ?></div>
+		</td>
+		<td>
+			<div class="titulo">(=) Valor Pago</div>
+			<div class="conteudo rtl"><?php echo $valor_cobrado ?></div>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="5" width="250">
+			<div class="titulo">Nome do Beneficiário/CNPJ/CPF e Endereço/Cidade/UF/CEP</div>
+			<div class="conteudo auto">
+				<?php echo $cedente; ?>&nbsp;/&nbsp;
+				<?php echo $cedente_cpf_cnpj; ?>&nbsp;/&nbsp;
+				<?php echo $cedente_endereco1; ?>&nbsp;/&nbsp;
+				<?php echo $cedente_endereco2; ?>
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="4">
+			<div class="titulo">Agência/Codigo Beneficiário</div>
+			<div class="conteudo"><?php echo $agencia_codigo_cedente ?></div>
+		</td>
+		<td class="noleftborder">
+			<div class="titulo">Autenticação mecânica</div>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="5" class="notopborder bottomborder">
+			<div style="margin-bottom: 10px;" class="conteudo auto"><?php echo implode('<br>', $demonstrativo); ?></div>
+		</td>
+	</tr>
+	</tbody>
+</table>
+<br>
+
+<div class="linha-pontilhada">Corte na linha pontilhada</div>
