@@ -139,7 +139,7 @@ class Credisis extends BoletoAbstract
     {
         $campoLivre = $this->getCampoLivre();
 
-        return $this->codigoBanco . $this->moeda . '0' . $this->getFatorVencimento() . self::zeroFill($this->valor, 11) . $campoLivre;
+        return $this->codigoBanco . $this->moeda . '0' . $this->getFatorVencimento() . self::zeroFill($this->valor * 100, 10) . $campoLivre;
     }
 
 

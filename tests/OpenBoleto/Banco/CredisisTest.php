@@ -42,7 +42,8 @@ class CredisisTest extends TestCase
         $fator = $this->getFatorVencimento($boleto->getDataVencimento());
 
         $this->assertEquals('09730001000023000010', $boleto->getNossoNumero());
-        $this->assertEquals('09790' . $fator . $this->zeroFill($boleto->getValor(), 11) . $boleto->getCampoLivre(), $boleto->getCodigoBarras());
+        $this->assertEquals('09790' . $fator . $this->zeroFill($boleto->getValor() * 100, 10) . $boleto->getCampoLivre(), $boleto->getCodigoBarras());
+        $this->assertEquals(strlen($boleto->getCodigoBarras()), 44);
         $this->assertEquals(strlen($boleto->getLinhaDigitavel()), 54);
     }
 
