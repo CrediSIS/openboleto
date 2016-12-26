@@ -10,6 +10,7 @@
 namespace OpenBoleto\Banco;
 
 use OpenBoleto\BoletoAbstract;
+use OpenBoleto\InvalidCpfCnpjException;
 
 class Credisis extends BoletoAbstract
 {
@@ -18,6 +19,12 @@ class Credisis extends BoletoAbstract
 	 * @var string
 	 */
 	protected $codigoBanco = '097';
+
+    /**
+     * Código da agência, composto por 4 dígitos numéricos
+     * @var string
+     */
+    protected $agencia;
 
 	/**
 	 * Localização do logotipo do banco, referente ao diretório de imagens
@@ -37,33 +44,31 @@ class Credisis extends BoletoAbstract
 	protected $carteiras = [ '18', '19' ];
 
 	/**
-	 * Define o código do Convênio: “1000000”
+	 * Código do convênio do cooperado.
 	 */
 	protected $convenio;
 
-	/**
-	 * Define o Código do Cooperado no DECLACOB. Ex: “1234”
-	 */
-	protected $codigoCooperado;
-
-	protected function gerarNossoNumero()
+    protected function gerarNossoNumero()
 	{
 		/**
 		 *
-		 * Nosso Número. Composição do Nosso Número: AAAAAAABBBBCCCCCC
-		 * AAAAAAA = Código do Convênio: “1000000”
-		 * BBBB = Código do Cooperado no DECLACOB. Ex: “1234”
-		 * CCCCCC = Sequencial do Título (nunca pode repetir). Ex: “000001”
+		 * Nosso Número. Composição do Nosso Número: 097DAAAACCCCCCSSSSSS
+         * D = Dígito verificador, Módulo 11 dos 9 primeiros dígitos do cpf ou 8 do cnpj do beneficiário
+		 * AAAA = Código da Agência: Ex: "0001"
+		 * CCCCCC = Código do Convenio do cooperado. Ex: “123456”
+		 * SSSSSS = Sequencial do Título (nunca pode repetir). Ex: “000001”
 		 *
 		 * Esta Sequencia seria representada por:
-		 * “10000001234000001”
+		 * “09710001123456000001”
 		 */
 
-		$convenio        = self::zeroFill($this->getConvenio(), 7);
-		$codigoCooperado = self::zeroFill($this->getCodigoCooperado(), 4);
+		$cpfCnpj = $this->cedente->getDocumento();
+
+		$digitoVerificado = self::modulo11($cpfCnpj, $this->getSize($cpfCnpj))['digito'];
+		$convenio        = self::zeroFill($this->getConvenio(), 6);
 		$sequencial      = self::zeroFill($this->getSequencial(), 6);
 
-		return $convenio . $codigoCooperado . $sequencial;
+		return $this->codigoBanco . $digitoVerificado . $this->agencia . $convenio . $sequencial;
 
 	}
 
@@ -75,23 +80,12 @@ class Credisis extends BoletoAbstract
 		 * .............................................................
 		 * N.       POSICOES    PICTURE  USAGE   CONTEUDO
 		 * .............................................................
-		 * 01       020 a 025   9/006/   Display  Fixo: “000000” (Zeros)
-		 * 02       026 a 042   9/017/   Display  NossoNúmero, sem DV
-		 * 03       043 a 044   9/002/   Display  Fixo: “18”
+		 * 01       020 a 40    9/020/   Display  NossoNúmero.
+		 * 02       040 a 044   9/004/   Display  Fixo: "00000" (Zeros)
 		 */
 
-		//Fixo: “000000” (Zeros)
-		$campoLivre = '000000';
-
-		//NossoNumero
-		$codigoCooperado = self::zeroFill($this->getCodigoCooperado(), 4);
-		$convenio        = self::zeroFill($this->getConvenio(), 7);
-		$sequencial      = self::zeroFill($this->getSequencial(), 6);
-
-		$campoLivre .= $convenio . $codigoCooperado . $sequencial;
-
-		//Fixo: "18"
-		$campoLivre .= '18';
+		$nossonumero = $this->gerarNossoNumero();
+        $campoLivre = $nossonumero . '00000';
 
 		return $campoLivre;
 	}
@@ -107,18 +101,6 @@ class Credisis extends BoletoAbstract
 		return $this->convenio;
 	}
 
-	public function setCodigoCooperado($codigoCooperado)
-	{
-		$this->codigoCooperado = $codigoCooperado;
-
-		return $this;
-	}
-
-	public function getCodigoCooperado()
-	{
-		return $this->codigoCooperado;
-	}
-
 	public function getLogoBanco()
 	{
 		$filename = "credisis/{$this->getAgencia()}.png";
@@ -127,6 +109,67 @@ class Credisis extends BoletoAbstract
 		return file_exists($filepath . $filename) ? $filename : $this->logoBanco;
 
 	}
+
+    public function getCodigoBanco()
+    {
+        return $this->codigoBanco;
+    }
+
+    public function getAgencia()
+    {
+        return $this->agencia;
+    }
+
+    public function getLocalPagamento()
+    {
+        return $this->localPagamento;
+    }
+
+    public function getCarteiras()
+    {
+        return $this->carteiras;
+    }
+
+    public function setAgencia( $agencia )
+    {
+        $this->agencia = $agencia;
+    }
+
+    public function getCodigoBarras()
+    {
+        $campoLivre = $this->getCampoLivre();
+
+        return $this->codigoBanco . $this->moeda . '0' . $this->getFatorVencimento() . self::zeroFill($this->valor, 11) . $campoLivre;
+    }
+
+
+
+    private function isCnpf( $value )
+    {
+        $regex = '/\A\d{14}\z/';
+
+        return preg_match( $regex, $value );
+    }
+
+    private function isCpf( $value )
+    {
+        $regex = '/\A\d{11}\z/';
+
+        return preg_match( $regex, $value );
+    }
+
+    private function getSize( $value )
+    {
+        if ( $this->isCnpf( $value ) ) {
+            return 8;
+        }
+
+        if ( $this->isCpf( $value ) ) {
+            return 9;
+        }
+
+        throw new InvalidCpfCnpjException('Formato do CPF/CNPJ informado é inválido, ele deve ser apenas número e conter 11 dígitos para CPF e 14 para CNPJ');
+    }
 
 
 }

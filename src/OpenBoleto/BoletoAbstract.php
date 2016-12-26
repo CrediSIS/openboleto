@@ -1347,7 +1347,7 @@ abstract class BoletoAbstract
 	public function getLinhaDigitavel()
 	{
 		$chave = $this->getCampoLivre();
-		
+
 		// Break down febraban positions 20 to 44 into 3 blocks of 5, 10 and 10
 		// characters each.
 		$blocks = [
