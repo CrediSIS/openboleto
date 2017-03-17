@@ -72,33 +72,6 @@ class Credisis extends BoletoAbstract
 
 	}
 
-    private function module11Barcode($number, $base = 9, $rest = 0) {
-        $sum    = 0;
-        $factor = 2;
-        for ($i = strlen($number); $i > 0; $i--) {
-            $sum += substr($number, $i - 1, 1) * $factor;
-            $factor = ($factor == $base ?  1 : $factor ) + 1;
-        }
-        if ($rest == 0) {
-            $sum *= 10;
-            $digit = $sum % 11;
-
-            if (strlen($number) == "43") {
-                if ($digit == 0 or $digit > 9 ) {
-                    $digit = 1;
-                }
-            } elseif ($digit == 10) {
-                $digit = "X";
-            }
-            return $digit;
-        } elseif ($rest == 1){
-            return $sum % 11;
-        } else {
-            return null;
-        }
-    }
-
-
 	public function getCampoLivre()
 	{
 		/**
@@ -164,9 +137,9 @@ class Credisis extends BoletoAbstract
     public function getCodigoBarras()
     {
         $campoLivre = $this->getCampoLivre();
-        $module11 = $this->module11Barcode($this->codigoBanco . $this->moeda . $this->getFatorVencimento() . self::zeroFill( (int) $this->valor * 100, 10) . self::zeroFill($campoLivre, 25));
+        $module11 = self::modulo11($this->codigoBanco . $this->moeda . $this->getFatorVencimento() . self::zeroFill( $this->valor * 100, 10) . self::zeroFill($campoLivre, 25));
 
-        return $this->codigoBanco . $this->moeda . $module11 . $this->getFatorVencimento() . self::zeroFill( (int) $this->valor * 100, 10) . self::zeroFill($campoLivre, 25);
+        return $this->codigoBanco . $this->moeda . $module11 . $this->getFatorVencimento() . self::zeroFill( $this->valor * 100, 10) . self::zeroFill($campoLivre, 25);
     }
 
     private function isCnpf( $value )
