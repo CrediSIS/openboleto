@@ -36,7 +36,7 @@ class Credisis extends BoletoAbstract
 	 * Linha de local de pagamento
 	 * @var string
 	 */
-	protected $localPagamento = 'ATE VCTO PAGAR QUALQUER BANCO. APOS SOMENTE NA REDE CREDISIS';
+    protected $localPagamento = 'Até o vencimento, pagável em qualquer Banco. Após somente nas Agências CrediSIS.';
 	/**
 	 * Define as carteiras disponíveis para este banco
 	 * @var array
