@@ -64,6 +64,10 @@ class Credisis extends BoletoAbstract
 
 		$cpfCnpj = $this->cedente->getDocumento();
 
+        $cpfCnpj = str_replace('.', '', $cpfCnpj);
+        $cpfCnpj = str_replace('/', '', $cpfCnpj);
+        $cpfCnpj = str_replace('-', '', $cpfCnpj);
+
 		$digitoVerificado = self::modulo11($cpfCnpj, $this->getSize($cpfCnpj))['digito'];
 		$convenio        = self::zeroFill($this->getConvenio(), 6);
 		$sequencial      = self::zeroFill($this->getSequencial(), 6);
