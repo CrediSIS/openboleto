@@ -1,0 +1,112 @@
+* {
+    background-color: white;
+    padding: 0;
+    margin: auto;
+    font-family: Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+    background-color: white;
+}
+
+.panel {
+    background-color: whitesmoke;
+    border-style: solid;
+    border-color: #999;
+    border-width: thin;
+    height: 100%;
+    width: 820px;
+}
+
+.panel * {
+    background-color: whitesmoke;
+}
+
+.logo {
+    width: 99%;
+    height: 100px;
+    background-color: inherit;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.logo img {
+    height: 90%;
+}
+
+
+.header {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    margin-bottom: 10px;
+    text-align: center;
+    width: 99%;
+    color: white;
+    background-color: #4ca20b;
+}
+
+.header h1 {
+    background-color: inherit;
+    color: white;
+}
+
+.content {
+    color: #2c3e50;
+    width: 90%;
+    text-align: center;
+    padding-bottom: 25px;
+}
+
+.content .pagador {
+    margin-bottom: 20px;
+    font-size: x-large;
+}
+
+.content .beneficiario {
+    margin-bottom: 20px;
+    font-size: large;
+}
+
+.content .info {
+    font-size: small;
+}
+
+.contatos {
+    margin-top: 10px;
+}
+
+.contatos .email {
+    margin-top: 20px;
+}
+
+.content hr {
+    margin: 20px 30px 20px 30px;
+}
+.content .credisiscobranca {
+    text-align: center;
+    font-size: small;
+}
+
+.content .credisiscobranca hr{
+    margin: 20px auto 20px auto;
+    width: 30px;
+}
+
+.endereco {
+    text-align: left;
+    padding: 20px 20px;
+    width: 80%;
+    border: 1px solid #999;
+    border-radius: 10px;
+}
+
+.nome {
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.documento {
+    float: right;
+}
