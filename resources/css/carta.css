@@ -14,14 +14,18 @@ body {
     width: 820px;
 }
 
+.table-boleto {
+    width: 800px !important;
+}
+
 
 .logo {
     width: 99%;
-    height: 100px;
+    height: 125px;
     background-color: inherit;
     text-align: center;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin-top: 30px;
+    margin-bottom: 30px;
 }
 
 .logo img {
@@ -95,11 +99,16 @@ hr {
 }
 
 .endereco {
+    margin-left: 30px;
     text-align: left;
-    padding: 20px 20px;
-    width: 80%;
+    padding: 30px 30px;
+    width: 40%;
     border: 2px solid #5e5e5e;
     border-radius: 10px;
+}
+
+.margin-top-20{
+    margin-top: 20px;
 }
 
 .nome {

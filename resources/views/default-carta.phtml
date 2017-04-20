@@ -37,12 +37,9 @@
 	<div class="logo">
 		<img src="<?php echo $logo_banco ?>" alt="Logo" title="Logo"/>
 	</div>
-	<div class="header" >
-		<h1>Boleto CrediSIS</h1>
-	</div>
 	<div class="content">
 		<div class="endereco">
-			<span class="documento">3532</span>
+			<span class="documento"><?php echo $numero_documento ?></span>
 			<br>
 			<span class="nome"><?php echo $sacado ?></span>
 			<br>
@@ -53,7 +50,7 @@
 	</div>
 </div>
 
-<hr>
+<div class="margin-top-20 linha-pontilhada">Corte na linha pontilhada</div>
 
 <div>
 	<?php include( 'partials/recibo-pagador.phtml' ) ?>
