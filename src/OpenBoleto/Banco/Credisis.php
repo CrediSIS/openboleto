@@ -140,10 +140,7 @@ class Credisis extends BoletoAbstract
 
     public function getCodigoBarras()
     {
-        $campoLivre = $this->getCampoLivre();
-        $module11 = self::modulo11($this->codigoBanco . $this->moeda . $this->getFatorVencimento() . self::zeroFill( $this->valor * 100, 10) . $campoLivre)['digito'];
-
-        return $this->codigoBanco . $this->moeda . $module11 . $this->getFatorVencimento() . self::zeroFill( $this->valor * 100, 10) . $campoLivre;
+        return parent::getNumeroFebraban();
     }
 
     private function isCnpf( $value )
