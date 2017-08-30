@@ -31,33 +31,33 @@
 		<?php include $resource_path . '/css/styles.css' ?>
 	</style>
 </head>
-<body style="page-break-inside: avoid">
+<body >
+<div style="page-break-inside: avoid">
+    <div class="panel">
+        <div class="logo">
+            <img src="<?php echo $logo_banco ?>" alt="Logo" title="Logo"/>
+        </div>
+        <div class="content">
+            <div class="endereco">
+                <span class="documento"><?php echo $numero_documento ?></span>
+                <br>
+                <span class="nome"><?php echo $sacado ?></span>
+                <br>
+                <span><?php echo $sacado_endereco1 ?></span>
+                <br>
+                <span><?php echo $sacado_endereco2 ?></span>
+            </div>
+        </div>
+    </div>
 
-<div class="panel">
-	<div class="logo">
-		<img src="<?php echo $logo_banco ?>" alt="Logo" title="Logo"/>
-	</div>
-	<div class="content">
-		<div class="endereco">
-			<span class="documento"><?php echo $numero_documento ?></span>
-			<br>
-			<span class="nome"><?php echo $sacado ?></span>
-			<br>
-			<span><?php echo $sacado_endereco1 ?></span>
-			<br>
-			<span><?php echo $sacado_endereco2 ?></span>
-		</div>
-	</div>
+    <div class="margin-top-50 linha-pontilhada">Corte na linha pontilhada</div>
+
+    <div>
+        <?php include( 'partials/recibo-pagador.phtml' ) ?>
+
+        <!-- Ficha de compensação -->
+        <?php include( 'partials/ficha-de-compensacao.phtml' ) ?>
+    </div>
 </div>
-
-<div class="margin-top-50 linha-pontilhada">Corte na linha pontilhada</div>
-
-<div>
-	<?php include( 'partials/recibo-pagador.phtml' ) ?>
-
-	<!-- Ficha de compensação -->
-	<?php include( 'partials/ficha-de-compensacao.phtml' ) ?>
-</div>
-
 </body>
 </html>
